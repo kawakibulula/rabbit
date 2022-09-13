@@ -86,11 +86,15 @@ rabbit.connect(server, (error0, connection) => {
           q.queue,
           async (msg) => {
             const eventTodo = JSON.parse(msg.content.toString());
-            await prisma.created.delete({
+            const deleted = await prisma.created.delete({
               where: {
                 id: eventTodo.id
               },
             });
+            channel.sendToQueue(
+              "todo.created",
+              Buffer.from(JSON.stringify(deleted))
+            );
           },
           {
             noAck: true,
