@@ -14,4 +14,31 @@ yarn or npm install
 yarn dev or npm run dev
 ```
 
-- after that you can test this simple microservice example with postman 
+- after that you can test this simple microservice example with postman or you can change the connect function in index.js inside backend folder eg:
+
+```js
+const connect = async () => {
+  const con = await getConnection();
+  const channel = await con.createChannel();
+  channel.assertExchange(channel1, "fanout", {
+    durable: false,
+  });
+  channel.publish(
+    channel1,
+    "",
+    Buffer.from(
+      JSON.stringify({
+        name: "tidur",
+      })
+    )
+  );
+  setTimeout(() => {
+    console.log("stop");
+    con.close();
+  }, 500);
+};
+
+connect()
+```
+
+# thankyou

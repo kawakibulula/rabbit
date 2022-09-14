@@ -21,6 +21,9 @@ app.listen(port, () => {
   console.log("server running on", port);
 });
 
+
+
+//to test the connection and payload
 let channel1 = "req.create.todo";
 let channel2 = "req.delete.todo";
 const connect = async () => {
