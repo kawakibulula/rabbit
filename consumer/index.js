@@ -70,7 +70,8 @@ rabbit.connect(server, (error0, connection) => {
                 },
               });
               console.log(todo)
-              todo.createdAt = String(todo.createdAt)
+              todo.createdAt = Number(todo.createdAt)
+              console.log(todo.createdAt)
               channel.sendToQueue(
                 "todo.created",
                 Buffer.from(JSON.stringify(todo))
@@ -111,7 +112,7 @@ rabbit.connect(server, (error0, connection) => {
               },
             });
             console.log(deleted)
-            deleted.createdAt = String(deleted.createdAt)
+            deleted.createdAt = Number(deleted.createdAt)
             channel.sendToQueue(
               "todo.deleted",
               Buffer.from(JSON.stringify(deleted))
