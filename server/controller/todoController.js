@@ -19,17 +19,17 @@ export const createTodo = async (req, res) => {
       data: data,
     });
     //this is just for testing the consumer
-    let exchange = "req.create.todo";
-    channel.assertExchange(exchange, "fanout", {
-      durable: false,
-    });
-    console.log('send', data)
-    channel.publish(exchange, "", Buffer.from(JSON.stringify(todos)));
-    res.status(201).json(todos);
-    setTimeout(() => {
-      console.log("stop");
-      con.close();
-    }, 500);
+    // let exchange = "req.create.todo";
+    // channel.assertExchange(exchange, "fanout", {
+    //   durable: false,
+    // });
+    // console.log('send', data)
+    // channel.publish(exchange, "", Buffer.from(JSON.stringify(todos)));
+    // res.status(201).json(todos);
+    // setTimeout(() => {
+    //   console.log("stop");
+    //   con.close();
+    // }, 500);
   } catch (error) {
     res.status(400).json({ msg: error.message });
   }
@@ -45,17 +45,17 @@ export const deleteTodo = async (req, res) => {
       },
     });
     //this is just for testing the consumer
-    let exchange = "req.delete.todo";
-    channel.assertExchange(exchange, "fanout", {
-      durable: false,
-    });
-    channel.publish(exchange, "", Buffer.from(JSON.stringify(deleted)));
-    console.log('send', req.params)
-    res.status(200).json(deleted)
-    setTimeout(() => {
-      console.log('stop')
-      con.close();
-    }, 500);
+    // let exchange = "req.delete.todo";
+    // channel.assertExchange(exchange, "fanout", {
+    //   durable: false,
+    // });
+    // channel.publish(exchange, "", Buffer.from(JSON.stringify(deleted)));
+    // console.log('send', req.params)
+    // res.status(200).json(deleted)
+    // setTimeout(() => {
+    //   console.log('stop')
+    //   con.close();
+    // }, 500);
   } catch (error) {
     res.status(400).json({ msg: error.message });
   }
