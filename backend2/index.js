@@ -49,7 +49,12 @@ rabbit.connect(server, (error0, connection) => {
             try {
               const eventTodo = JSON.parse(msg.content.toString());
               console.log(eventTodo)
-              const date = new Date(eventTodo.createdAt);
+              const timeElapsed = Date.now()
+              const today = new Date(timeElapsed);
+              console.log(typeof eventTodo.createdAt)
+              const date = eventTodo.createdAt !== undefined ? new Date(eventTodo.createdAt) : today;
+              console.log(today)
+              console.log(date.getTime())
               const milis = date.getTime();
               const todo = await prisma.todos.create({
                 data: {
