@@ -18,6 +18,7 @@ export const createTodo = async (req, res) => {
     const todos = await prisma.todos.create({
       data: data,
     });
+    //this is just for testing the consumer
     let exchange = "req.create.todo";
     channel.assertExchange(exchange, "fanout", {
       durable: false,
@@ -43,6 +44,7 @@ export const deleteTodo = async (req, res) => {
         id: req.params.id,
       },
     });
+    //this is just for testing the consumer
     let exchange = "req.delete.todo";
     channel.assertExchange(exchange, "fanout", {
       durable: false,

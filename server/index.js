@@ -23,7 +23,7 @@ app.listen(port, () => {
 
 
 
-//to test the connection and payload
+// this function just for the connection and payload
 let channel1 = "req.create.todo";
 let channel2 = "req.delete.todo";
 const connect = async () => {
