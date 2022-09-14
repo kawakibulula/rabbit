@@ -9,17 +9,10 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
-model Created{
-  id String @id
+
+model Todos{
+  id String @id @default(cuid())
   name String
-  description String
-  createdAt DateTime @default(now())
-  @@map("created")
-}
-model Deleted{
-  id String @id
-  name String
-  description String
-  createdAt DateTime @default(now())
-  @@map("deleted")
+  createdAt BigInt
+  @@map("todos")
 }

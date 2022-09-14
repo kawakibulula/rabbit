@@ -17,7 +17,7 @@ rabbit.connect(server, (error0, connection) => {
     if (error1) {
       throw error1;
     }
-    
+
     let channel1 = "req.create.todo";
     let channel2 = "req.delete.todo";
     app.use(cors());
@@ -46,20 +46,28 @@ rabbit.connect(server, (error0, connection) => {
         channel.consume(
           q.queue,
           async (msg) => {
-            const eventTodo = JSON.parse(msg.content.toString());
-            console.log(eventTodo);
-            const todo = await prisma.created.create({
-              data: {
-                id: eventTodo.id,
-                name: eventTodo.name,
-                description: eventTodo.description,
-                createdAt: eventTodo.createdAt,
-              },
-            });
-            channel.sendToQueue(
-              "todo.created",
-              Buffer.from(JSON.stringify(todo))
-            );
+            try {
+              const eventTodo = JSON.parse(msg.content.toString());
+              console.log(eventTodo)
+              const date = new Date(eventTodo.createdAt);
+              const milis = date.getTime();
+              const todo = await prisma.todos.create({
+                data: {
+                  id: eventTodo.id,
+                  name: eventTodo.name,
+                  createdAt: milis,
+                },
+              });
+              console.log(todo)
+              todo.createdAt = String(todo.createdAt)
+              channel.sendToQueue(
+                "todo.created",
+                Buffer.from(JSON.stringify(todo))
+              );
+              
+            } catch (error) {
+              console.log(error);
+            }
           },
           {
             noAck: true,
@@ -81,16 +89,18 @@ rabbit.connect(server, (error0, connection) => {
           q.queue
         );
         channel.bindQueue(q.queue, channel2, "");
-
         channel.consume(
           q.queue,
           async (msg) => {
             const eventTodo = JSON.parse(msg.content.toString());
-            const deleted = await prisma.created.delete({
+            console.log(eventTodo.id);
+            const deleted = await prisma.todos.delete({
               where: {
-                id: eventTodo.id
+                id: eventTodo.id,
               },
             });
+            console.log(deleted)
+            deleted.createdAt = String(deleted.createdAt)
             channel.sendToQueue(
               "todo.created",
               Buffer.from(JSON.stringify(deleted))
@@ -114,3 +124,5 @@ rabbit.connect(server, (error0, connection) => {
     });
   });
 });
+
+ 

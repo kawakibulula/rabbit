@@ -13,7 +13,6 @@ datasource db {
 model Todos{
   id String @id @default(cuid())
   name String
-  description String
   createdAt DateTime @default(now())
   @@map("todos")
 }

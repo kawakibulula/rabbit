@@ -14,19 +14,19 @@ export const createTodo = async (req, res) => {
   const data = await req.body;
   const con = await getConnection();
   const channel = await con.createChannel();
-  console.log(data);
   try {
     const todos = await prisma.todos.create({
       data: data,
     });
-    let exchange = "req.create.todo"
-    channel.assertExchange(exchange, 'fanout', {
-      durable: false
-    })
-    channel.publish(exchange, '', Buffer.from(JSON.stringify(todos)))
+    let exchange = "req.create.todo";
+    channel.assertExchange(exchange, "fanout", {
+      durable: false,
+    });
+    console.log('send', data)
+    channel.publish(exchange, "", Buffer.from(JSON.stringify(todos)));
     res.status(201).json(todos);
     setTimeout(() => {
-      console.log('stop')
+      console.log("stop");
       con.close();
     }, 500);
   } catch (error) {
@@ -43,13 +43,15 @@ export const deleteTodo = async (req, res) => {
         id: req.params.id,
       },
     });
-    let exchange = "req.delete.todo"
-    channel.assertExchange(exchange, 'fanout', {
-      durable: false
-    })
-    channel.publish(exchange, '', Buffer.from(JSON.stringify(deleted)))
-    res.status(200).json(deleted);
+    let exchange = "req.delete.todo";
+    channel.assertExchange(exchange, "fanout", {
+      durable: false,
+    });
+    channel.publish(exchange, "", Buffer.from(JSON.stringify(deleted)));
+    console.log('send', req.params)
+    res.status(200).json(deleted)
     setTimeout(() => {
+      console.log('stop')
       con.close();
     }, 500);
   } catch (error) {
