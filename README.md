@@ -13,7 +13,7 @@ yarn or npm install
 ```
 npx prisma migrate dev
 ```
-- to run the app you can run this command
+- before running the app you can make the env file with your config, Okay now you run this app with this command
 ```
 yarn dev or npm run dev
 ```
