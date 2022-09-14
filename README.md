@@ -5,7 +5,7 @@
 ```
 docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3.10-management
 ```
-- after that you can install required package in folder backend and backend2 with this command
+- after that you can install required package in each folder with this command
 ```
 yarn or npm install
 ```
@@ -18,7 +18,7 @@ npx prisma migrate dev
 yarn dev or npm run dev
 ```
 
-- after that you can test this simple microservice example with postman or you can change the connect function in index.js inside backend folder eg:
+- after that you can test this simple microservice example with postman or you can change the connect function in index.js inside publisher folder eg:
 
 ```js
 const connect = async () => {
