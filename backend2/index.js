@@ -18,8 +18,8 @@ rabbit.connect(server, (error0, connection) => {
       throw error1;
     }
 
-    let channel1 = "req.create.todo";
-    let channel2 = "req.delete.todo";
+    const channel1 = "req.create.todo";
+    const channel2 = "req.delete.todo";
     app.use(cors());
     app.use(express.json());
     channel.assertExchange(channel1, "fanout", {
@@ -69,7 +69,7 @@ rabbit.connect(server, (error0, connection) => {
                 "todo.created",
                 Buffer.from(JSON.stringify(todo))
               );
-              
+              channel.publish('todo.created', "", Buffer.from(JSON.stringify(todo)))       
             } catch (error) {
               console.log(error);
             }
@@ -107,9 +107,10 @@ rabbit.connect(server, (error0, connection) => {
             console.log(deleted)
             deleted.createdAt = String(deleted.createdAt)
             channel.sendToQueue(
-              "todo.created",
+              "todo.deleted",
               Buffer.from(JSON.stringify(deleted))
             );
+            channel.publish("todo.deleted", "", Buffer.from(JSON.stringify(deleted)))
           },
           {
             noAck: true,
