@@ -1,13 +1,17 @@
 # simple publisher and consumer with rabbitmq
 
 # how to run
-- first you need to run this command on terminal
+- first you need to install mysql database and run this command on terminal
 ```
 docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3.10-management
 ```
 - after that you can install required package in folder backend and backend2 with this command
 ```
 yarn or npm install
+```
+- after that you can run this command to make the sql database and table
+```
+npx prisma migrate dev
 ```
 - to run the app you can run this command
 ```
