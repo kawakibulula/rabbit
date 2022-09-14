@@ -28,6 +28,12 @@ rabbit.connect(server, (error0, connection) => {
     channel.assertExchange(channel2, "fanout", {
       durable: false,
     });
+    channel.assertExchange('todo.created', "fanout", {
+      durable: false
+    })
+    channel.assertExchange('todo.deleted', "fanout", {
+      durable: false
+    })
     channel.assertQueue(
       "",
       {
