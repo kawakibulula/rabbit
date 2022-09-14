@@ -18,7 +18,7 @@ npx prisma migrate dev
 yarn dev or npm run dev
 ```
 
-- after that you can test this simple microservice example with postman or you can change the connect function in index.js inside publisher folder eg:
+- after that you can test this simple microservice example with postman or you can change the connect function in index.js inside server folder eg:
 
 ```js
 const connect = async () => {
