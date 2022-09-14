@@ -125,7 +125,7 @@ rabbit.connect(server, (error0, connection) => {
       }
     );
     app.get("/todos", async (req, res) => {
-      const result = await prisma.created.findMany();
+      const result = await prisma.todos.findMany();
       res.status(200).json(result);
     });
     app.listen(port, () => {

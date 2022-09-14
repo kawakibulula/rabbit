@@ -18,6 +18,6 @@ npx prisma migrate dev
 yarn dev or npm run dev
 ```
 
-- note: the server folder just for this testing
+- note: the server folder just for this testing publisher
 
 # thankyou
