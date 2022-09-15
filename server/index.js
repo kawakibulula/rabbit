@@ -24,27 +24,27 @@ app.listen(port, () => {
 
 
 // this function just for the connection and payload
-// let channel1 = "req.create.todo";
-// let channel2 = "req.delete.todo";
-// const connect = async () => {
-//   const con = await getConnection();
-//   const channel = await con.createChannel();
-//   channel.assertExchange(channel1, "fanout", {
-//     durable: false,
-//   });
-//   channel.publish(
-//     channel1,
-//     "",
-//     Buffer.from(
-//       JSON.stringify({
-//         name: "bahagia",
-//       })
-//     )
-//   );
-//   setTimeout(() => {
-//     console.log("stop");
-//     con.close();
-//   }, 500);
-// };
+let channel1 = "req.create.todo";
+let channel2 = "req.delete.todo";
+const connect = async () => {
+  const con = await getConnection();
+  const channel = await con.createChannel();
+  channel.assertExchange(channel1, "fanout", {
+    durable: false,
+  });
+  channel.publish(
+    channel1,
+    "",
+    Buffer.from(
+      JSON.stringify({
+        name: "bahagia",
+      })
+    )
+  );
+  setTimeout(() => {
+    console.log("stop");
+    con.close();
+  }, 500);
+};
 
-// connect()
+connect()
