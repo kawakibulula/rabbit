@@ -7,9 +7,12 @@ dotenv.config();
 const app = express();
 
 const port = process.env.PORT || 3030;
-const server = process.env.SERVER || "amqp://localhost";
+const user = process.env.USER || "guest";
+const password = process.env.PASSWORD || "guest";
+const host = process.env.HOST || "localhost"
+const rabbitHost = process.env.PORT || 5673;
 
-rabbit.connect(server, (error0, connection) => {
+rabbit.connect(`amqp://${user}:${password}@${host}:${rabbitHost}`, (error0, connection) => {
   if (error0) {
     throw error0;
   }

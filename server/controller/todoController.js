@@ -18,14 +18,14 @@ export const createTodo = async (req, res) => {
     const todos = await prisma.todos.create({
       data: data,
     });
-    //this is just for testing the consumer
+   // this is just for testing the consumer
     // let exchange = "req.create.todo";
     // channel.assertExchange(exchange, "fanout", {
     //   durable: false,
     // });
     // console.log('send', data)
     // channel.publish(exchange, "", Buffer.from(JSON.stringify(todos)));
-    // res.status(201).json(todos);
+    res.status(201).json(todos);
     // setTimeout(() => {
     //   console.log("stop");
     //   con.close();
@@ -51,7 +51,7 @@ export const deleteTodo = async (req, res) => {
     // });
     // channel.publish(exchange, "", Buffer.from(JSON.stringify(deleted)));
     // console.log('send', req.params)
-    // res.status(200).json(deleted)
+    res.status(200).json(deleted)
     // setTimeout(() => {
     //   console.log('stop')
     //   con.close();
